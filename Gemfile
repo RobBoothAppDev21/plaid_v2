@@ -17,6 +17,7 @@ gem "rails", "~> 7.0.8" # Bundle edge Rails instead: gem "rails", github: "rails
 gem "redis", "~> 4.0" # Use Redis adapter to run Action Cable in production
 gem "sprockets-rails" # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "stimulus-rails" # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem "tailwindcss-rails", "~> 2.0"
 gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 
