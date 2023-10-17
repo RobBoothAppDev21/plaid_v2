@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Spec/support/chrome.rb
 
 RSpec.configure do |config|
