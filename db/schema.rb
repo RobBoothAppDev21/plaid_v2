@@ -10,14 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_17_021920) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_22_221158) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "portfolios", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "item_id", null: false
     t.string "name"
+    t.string "plaid_id"
+    t.string "mask"
+    t.decimal "current_balance"
+    t.decimal "available_balance"
+    t.string "limit"
+    t.string "currency_code"
+    t.string "subtype"
+    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_accounts_on_item_id"
+  end
+
+  create_table "items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "access_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "plaid_item_id"
+    t.string "bank_name"
+    t.string "transactions_cursor"
+    t.boolean "is_active"
+    t.index ["user_id"], name: "index_items_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -32,4 +54,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_021920) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "accounts", "items"
+  add_foreign_key "items", "users"
 end
