@@ -34,8 +34,6 @@ class PlaidApi
     request.public_token = public_token
 
     client.item_public_token_exchange(request)
-    # response = client.item_public_token_exchange(request)
-    # response.access_token
   end
 
   def remove_item(access_token)
