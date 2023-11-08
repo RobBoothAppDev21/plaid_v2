@@ -1,4 +1,4 @@
-<h1>Index#html
+<h1>
   <% if current_user %>
     <%= current_user.email %>
   <% end %>
@@ -7,3 +7,32 @@
  <button data-controller="plaid-link">
   <strong id="link-account">Link account</strong>
 </button>
+
+<% if @accounts %>
+  <table>
+    <tr>
+      <th>
+        Bank Name
+      </th>
+      <th>
+        Account Name
+      </th>
+      <th>
+        Balance
+      </th>
+    </tr>
+    <% @accounts.each do |account| %>
+      <tr>
+        <td>
+          <%= account.item.bank_name %>
+        </td>
+        <td>
+          <%= account.name %>
+        </td>
+        <td>
+          <%= account.current_balance %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

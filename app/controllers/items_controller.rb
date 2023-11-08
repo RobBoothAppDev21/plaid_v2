@@ -3,21 +3,14 @@ class ItemsController < ApplicationController
   def create
     item_exchange_response = JSON.parse(params[:item_exchange_response])
     metadata = params[:metadata]
-    plaid_item_id = item_exchange_response["item_id"]
-    access_token = item_exchange_response["access_token"]
-    bank_name = metadata["institution"]["name"]
-    item = Item.new(
-      user_id: current_user.id,
-      access_token:,
-      plaid_item_id: plaid_item_id,
-      bank_name:,
-    )
+    item = Item::Create.call(item_exchange_response, metadata, user: current_user)
 
-    render json: item
-    # item.save
-    # respond_to do |format|
-    #   format.json { render json: {}}
-    # end
+    if item&.valid?
+      Account::FindNewAccounts.call(item)
+      redirect_to root_path
+    else
+      flash.now[:alert] = "Something went wrong"
+    end
   end
 
   private

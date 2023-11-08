@@ -34,8 +34,6 @@ class PlaidApi
     request.public_token = public_token
 
     client.item_public_token_exchange(request)
-    # response = client.item_public_token_exchange(request)
-    # response.access_token
   end
 
   def remove_item(access_token)
@@ -60,10 +58,9 @@ class PlaidApi
   end
 
   def transactions(access_token)
-    transaction_sync_request = Plaid::TransactionsSyncRequest.new
-    transaction_sync_request.access_token = access_token
-
-    transaction_response = client.transactions_sync(transaction_sync_request)
+    transactions_sync_request = Plaid::TransactionsSyncRequest.new
+    transactions_sync_request.access_token = access_token
+    transaction_response = client.transactions_sync(transactions_sync_request)
     transactions = transaction_response.added
 
     while transaction_response.has_more
@@ -74,5 +71,6 @@ class PlaidApi
       transaction_response = client.transactions_sync(transactions_sync_request)
       transactions += transaction_response.added
     end
+    transactions
   end
 end
