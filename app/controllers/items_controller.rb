@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
       Account::FindNewAccounts.call(item)
       redirect_to root_path
     else
-      flash.now[:alert] = "Not valid item"
+      flash.now[:alert] = "Something went wrong"
     end
   end
 

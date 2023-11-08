@@ -2,7 +2,8 @@ class AccountsController < ApplicationController
   before_action :plaid_client, only: %w[index show create]
 
   def index
-    @accounts = Account.all
+    # @accounts = Account.all
+    @accounts = current_user.accounts
   end
 
   def show

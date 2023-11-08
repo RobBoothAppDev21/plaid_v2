@@ -24,8 +24,6 @@ module Item::Create
     metadata["institution"]["name"]
   end
 
-  private
-
   def self.existing_item?(bank_name, user_id)
     Item.exists?(bank_name: bank_name, user_id: user_id) # create NullItem
   end
