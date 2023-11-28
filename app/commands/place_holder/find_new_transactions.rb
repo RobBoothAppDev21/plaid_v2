@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Transactions::FindeNewTransactions
+module PlaceHolder::FindNewTransactions
   def self.call(item)
     
   end

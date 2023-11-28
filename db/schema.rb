@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_07_052521) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_28_032257) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_052521) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
+  create_table "transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "account_id", null: false
+    t.string "category"
+    t.date "date"
+    t.date "authorized_date"
+    t.string "name"
+    t.decimal "amount"
+    t.string "currency_code", default: "USD"
+    t.boolean "is_removed", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_transactions_on_account_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -56,4 +72,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_052521) do
 
   add_foreign_key "accounts", "items"
   add_foreign_key "items", "users"
+  add_foreign_key "transactions", "accounts"
+  add_foreign_key "transactions", "users"
 end
