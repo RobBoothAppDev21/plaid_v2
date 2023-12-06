@@ -16,7 +16,7 @@
   </div>
   <div>
     <p class="w-full font-bold text-sm mb-2">NUMBER OF BANKS CONNECTED</p>
-    <p><%= @accounts.size %></p>
+    <p><%= @items.size %></p>
   </div>
 </div>
 <div class="mx-20 my-20 flex flex-wrap">
@@ -25,7 +25,7 @@
 </div>
 <div class="mx-20 my-10 flex flex-wrap">
   <p class="text-lg font-thin w-full pb-4">
-    YOUR TOTAL ACROSS <%= pluralize(@accounts.size, "account").upcase %>
+    YOUR TOTAL ACROSS <%= pluralize(@items.size, "bank").upcase %>
   </p>
   <p class="text-3xl font-extrabold w-full pb-2">$220.00</p>
 </div>
@@ -74,7 +74,7 @@
 </div>
 <div class="mx-20 my-10 flex flex-wrap">
   <p class="text-lg font-thin w-full pb-4">
-    <%= "Monthly breakdown across #{pluralize(@accounts.size, "account")}".upcase %>
+    <%= "Monthly breakdown across #{pluralize(@items.size, "bank")}".upcase %>
   </p>
   <p class="text-3xl font-extrabold w-full pb-2">$100</p>
 </div>
@@ -98,26 +98,34 @@
         <p>Vendor</p>
         <p>Amount</p>
       </div>
-      <div class="ww-full flex flex-wrap space-x-20">
-        <p>Uber</p>
-        <p>$24.12</p>
-      </div>
+      <% @top_merchants.each do |merchant_spend| %>
+        <div class="w-full flex flex-wrap">
+          <p class="flex-1"><%= merchant_spend[0].truncate(16) %></p>
+          <p class="flex-1"><%= merchant_spend[1] %></p>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
-<div class="mx-20 my-20 flex flex-wrap">
-  <p class="text-3xl font-extrabold w-full pb-2">
-    <%= "#{pluralize(@accounts.size, "Accounts")} Linked" %>
-  </p>
-  <p class="text-2xl font-thin w-full">
-    Below is a list of all your connected banks. Click on a bank to views its associated accounts
-  </p>
+<div class="mx-20 mt-20 mb-10 flex flex-wrap justify-between">
+  <div class="flex flex-wrap flex-1">
+    <p class="text-3xl font-extrabold w-full pb-2">
+      <%= "#{pluralize(@items.size, "Banks")} Linked" %>
+    </p>
+    <p class="text-lg font-thin w-full">
+      Below is a list of all your connected banks. Click on a bank to views its associated accounts
+    </p>
+  </div>
+  <button data-controller="plaid-link" class="bg-black text-white px-6 py-4 h-fit rounded-sm">
+    <p class="text-xl" id="link-account">
+      Add another bank <span class="text-2x ml-8">&#8250;</span>
+    </p>
+  </button>
 </div>
-<div>
-  <% @accounts.each do |account| %>
-    <div class="mx-20 mb-4 py-8 flex flex-wrap shadow-sm bg-gray-100 content-center">
-      <p class="mx-4"><%= account.item.bank_name %> - <%= account.name %> </p>
-      <p> <%= account.current_balance_cents %>
+<div class="">
+  <% @items.each do |item| %>
+    <div class="mx-20 mb-6 py-8 px-8 flex flex-wrap shadow-lg bg-gray-100 content-center border border-gray-200 font-thin justify-between">
+      <p class=""><%= item.bank_name %></p>
       <p>Remove</p>
     </div>
   <% end %>

@@ -10,23 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_28_032257) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_30_153844) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "item_id", null: false
     t.string "name"
-    t.string "plaid_id"
+    t.string "plaid_account_id"
     t.string "mask"
-    t.decimal "current_balance"
-    t.decimal "available_balance"
-    t.string "limit"
     t.string "currency_code"
     t.string "account_subtype"
     t.string "account_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "current_balance_cents", default: 0
+    t.integer "available_balance_cents", default: 0
+    t.integer "limit_cents", default: 0
     t.index ["item_id"], name: "index_accounts_on_item_id"
   end
 
@@ -39,6 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_032257) do
     t.string "bank_name"
     t.string "transactions_cursor"
     t.boolean "is_active"
+    t.string "institution_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -49,11 +50,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_032257) do
     t.date "date"
     t.date "authorized_date"
     t.string "name"
-    t.decimal "amount"
     t.string "currency_code", default: "USD"
     t.boolean "is_removed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "plaid_transaction_id"
+    t.integer "amount_cents", default: 0
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
