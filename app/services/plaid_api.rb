@@ -17,13 +17,15 @@ class PlaidApi
   def link_token(user)
     client_user_id = user.id
 
-    link_token_create_request = Plaid::LinkTokenCreateRequest.new({
-      user: { client_user_id: client_user_id.to_s },
-      client_name: "My app",
-      products: ["auth", "transactions"],
-      country_codes: ["US"],
-      language: "en",
-    })
+    link_token_create_request = Plaid::LinkTokenCreateRequest.new(
+      {
+        user: { client_user_id: client_user_id.to_s },
+        client_name: "My app",
+        products: ["auth", "transactions"],
+        country_codes: ["US"],
+        language: "en",
+      },
+    )
 
     link_token_response = client.link_token_create(link_token_create_request)
     link_token_response.link_token
@@ -52,7 +54,7 @@ class PlaidApi
   end
 
   def balances(access_token)
-    request = Plaid::AccountsBalanceGetRequest.new({ access_token: access_token})
+    request = Plaid::AccountsBalanceGetRequest.new({ access_token: })
     response = client.accounts_balance_get(request)
     response.accounts
   end
