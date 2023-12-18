@@ -8,7 +8,7 @@ module PlaidApi::CreateLinkToken
       {
         user: { client_user_id: client_user_id.to_s },
         client_name: "My app",
-        products: ["auth", "transactions"],
+        products: ["assets", "investments", "liabilities", "transactions"],
         country_codes: ["US"],
         language: "en",
       },

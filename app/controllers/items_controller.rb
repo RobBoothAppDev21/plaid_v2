@@ -5,6 +5,8 @@ class ItemsController < ApplicationController
   def index
     @items = Item.all
     @top_merchants = Transaction::GetTopMerchants.call
+    @cash_balance = Assets::GetAccounts.available_cash
+    @total_asset_value = Assets::GetAccounts.total_asset_value
   end
 
   def create

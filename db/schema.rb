@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_30_153844) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_15_234819) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,6 +56,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_30_153844) do
     t.datetime "updated_at", null: false
     t.string "plaid_transaction_id"
     t.integer "amount_cents", default: 0
+    t.string "category_detailed"
+    t.string "category_primary"
+    t.string "pending_transaction_id"
+    t.string "logo_url"
+    t.boolean "pending"
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end

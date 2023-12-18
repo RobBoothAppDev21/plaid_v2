@@ -12,7 +12,13 @@ module PlaidApi::GetTransactions
     has_more = true
 
     while has_more
-      request = Plaid::TransactionsSyncRequest.new({ access_token:, cursor: })
+      request = Plaid::TransactionsSyncRequest.new(
+        {
+          access_token:,
+          cursor:,
+          options: { include_personal_finance_category: true },
+        },
+      )
       response = client.transactions_sync(request)
 
       added += response.added

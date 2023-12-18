@@ -12,11 +12,24 @@ module Transaction::Create
       amount_cents: extract_amount(transaction),
       currency_code: extract_currency_code(transaction),
       plaid_transaction_id: extract_plaid_transaction_id(transaction),
+      category_detailed: extract_personal_finance_detailed_category(transaction),
+      category_primary: extract_personal_finance_primary_category(transaction),
+      pending: extract_pending_status(transaction),
+      pending_transaction_id: extract_pending_transaction_id(transaction),
+      logo_url: extract_logo_url(transaction),
     )
   end
 
   def self.extract_category(transaction)
     transaction.category
+  end
+
+  def self.extract_personal_finance_detailed_category(transaction)
+    transaction.personal_finance_category.detailed
+  end
+
+  def self.extract_personal_finance_primary_category(transaction)
+    transaction.personal_finance_category.primary
   end
 
   def self.extract_date(transaction)
@@ -28,7 +41,7 @@ module Transaction::Create
   end
 
   def self.extract_name(transaction)
-    transaction.merchant_name
+    transaction.merchant_name || transaction.name
   end
 
   def self.extract_amount(transaction)
@@ -43,11 +56,15 @@ module Transaction::Create
     transaction.transaction_id
   end
 
-  def self.extract_primary_finance_category(transaction)
-    transaction.personal_finance_category.primary
+  def self.extract_pending_transaction_id(transaction)
+    transaction.pending_transaction_id
   end
 
-  def self.extract_detailed_finance_category(transaction)
-    transaction.personal_finance_category.detailed
+  def self.extract_pending_status(transaction)
+    transaction.pending
+  end
+
+  def self.extract_logo_url(transaction)
+    transaction.logo_url
   end
 end

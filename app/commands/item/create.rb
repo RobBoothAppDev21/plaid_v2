@@ -49,8 +49,8 @@ module Item::Create
 
     if Item.where(institution_id:, user_id:).exists?
       item = Item.find_by(institution_id:, user_id:)
-      access_token = extract_access_token(item_exchange_response)
-      Item::UpdateAccessToken.call(access_token:, item:)
+      # access_token = extract_access_token(item_exchange_response)
+      # Item::UpdateAccessToken.call(access_token:, item:)
       true
     else
       false

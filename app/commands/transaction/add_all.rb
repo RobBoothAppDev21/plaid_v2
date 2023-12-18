@@ -11,7 +11,7 @@ module Transaction::AddAll
   end
 
   def self.retrieve_account_id(transaction, item_id)
-    account = Account.find_by(plaid_account_id: transaction.account_id, item_id:)
+    account = Account.find_by(id: transaction.account_id, item_id:)
     account.id
   end
 end

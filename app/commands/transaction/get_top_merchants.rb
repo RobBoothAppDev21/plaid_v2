@@ -11,6 +11,6 @@ module Transaction::GetTopMerchants
       hash[transaction.name] += transaction.amount_cents
     end
 
-    merchant_by_spend.sort_by { |h, v| -v }.slice(0,5)
+    merchant_by_spend.sort_by { |h, v| -v }.slice(0, 5)
   end
 end
