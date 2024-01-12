@@ -2,7 +2,7 @@
 
 module Item::Create
   def self.call(item_exchange_response:, metadata:, user_id:)
-    # return if existing_item?(item_exchange_response, metadata, user_id)
+    return if existing_item?(metadata, user_id)
     return if update_item?(item_exchange_response:, metadata:, user_id:)
 
     Item.create(

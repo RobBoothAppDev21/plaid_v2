@@ -29,8 +29,8 @@ export default class extends Controller {
           const res = await req.perform()
           if (res.ok) {
             const itemExchangeResponse = await res.text
-            console.log("ItemExchange: ", itemExchangeResponse)
-            console.log("Metadata: ", metadata)
+            // console.log("ItemExchange: ", itemExchangeResponse)
+            // console.log("Metadata: ", metadata)
             const createItemRequest = new FetchRequest("post", '/items', {
               body: { 
                 item_exchange_response: itemExchangeResponse, 
@@ -40,9 +40,6 @@ export default class extends Controller {
             })
             const createItemResponse = await createItemRequest.perform()
           }
-          // });
-          // await getBalance()
-          // await getTransactions()
         },
         onEvent: (eventName, metadata) => {
           console.log("Event:", eventName)
@@ -58,14 +55,5 @@ export default class extends Controller {
         handler.open()
       })
     })(jQuery)
-
-    const getBalance = async function () {
-      const response = new FetchRequest("post", "/accounts", {
-        body: {},
-        contentType: "application/json"
-      })
-      const req = await response.perform()
-    }
-
   }
 }

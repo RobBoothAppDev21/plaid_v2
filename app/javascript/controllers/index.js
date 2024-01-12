@@ -9,3 +9,6 @@ application.register("hello", HelloController)
 
 import PlaidLinkController from "./plaid_link_controller"
 application.register("plaid-link", PlaidLinkController)
+
+import RendererController from "./renderer_controller"
+application.register("renderer", RendererController)

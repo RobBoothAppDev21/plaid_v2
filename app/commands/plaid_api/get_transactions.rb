@@ -2,7 +2,6 @@
 
 module PlaidApi::GetTransactions
   def self.call(item)
-    # binding.break
     client = PlaidApi::CreateClient.call
     cursor = extract_cursor(item)
     access_token = extract_access_token(item)

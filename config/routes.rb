@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resource :accounts, controller: :accounts, only: [:create, :update, :destroy]
-  resource :items, controller: :items, only: [:index, :create, :update, :destroy]
+  # resource :accounts, controller: :accounts, only: [:create, :update, :destroy]
+  resources :items, controller: :items, only: [:index, :create, :update, :destroy] do
+    resources :accounts, only: [:index, :show]
+  end
   devise_for :users
   root "items#index"
 
   get "/", to: "items#index"
+  # get "/accounts", to: "accounts#index"
   # post "/items", to: "items#create"
   # delete "/items/:id", to: "items#destroy"
 

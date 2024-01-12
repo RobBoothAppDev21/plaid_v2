@@ -6,6 +6,8 @@
     "@hotwired/turbo-rails": "^7.3.0",
     "@rails/request.js": "^0.0.9",
     "autoprefixer": "^10.4.16",
+    "chart.js": "^4.4.1",
+    "chartkick": "^5.0.1",
     "esbuild": "^0.19.4",
     "jquery": "^3.7.1",
     "postcss": "^8.4.31",

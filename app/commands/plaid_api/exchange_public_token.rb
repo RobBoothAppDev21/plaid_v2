@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module PlaidApi::ExchangePublicToken
-  def self.call(client, public_token)
+  def self.call(public_token)
+    client = PlaidApi::CreateClient.call
     request = Plaid::ItemPublicTokenExchangeRequest.new
     request.public_token = public_token
 

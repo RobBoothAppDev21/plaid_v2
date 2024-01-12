@@ -7,6 +7,7 @@ FactoryBot.define do
     plaid_item_id { "Ed6bjNrDLJfGvZWwnkQlfxwoNz54B5C97ejBr" }
     bank_name { "Chase" }
     transactions_cursor { "" }
-    is_active { "" }
+    is_active { true }
+    institution_id { "BNK_01" }
   end
 end
