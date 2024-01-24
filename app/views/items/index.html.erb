@@ -1,0 +1,155 @@
+<div class="mx-20 mt-12 mb-6 flex flex-wrap">
+  <p class="text-6xl font-extrabold w-full pb-4">Plaid Pattern</p>
+  <p class="text-3xl font-thin pb-4 border-b border-black">
+    This page shows a user's net worth, spending by category, and allows them 
+    to explore account and transactions details for linked items.
+  </p>
+</div>
+<div class="mx-20 mt-12 mb-6 py-8 flex flex-wrap justify-around shadow-xl content-center border border-gray-100">
+  <div class="flex flex-wrap justify-between content-between">
+    <p class="w-full font-bold text-sm mb-2">EMAIL</p>
+    <p><%= current_user.email %></p>
+  </div>
+  <div>
+    <p class="w-full font-bold text-sm mb-2">CREATED ON</p>
+    <p><%= current_user.created_at.strftime('%m/%d/%Y') %></p>
+  </div>
+  <div>
+    <p class="w-full font-bold text-sm mb-2">NUMBER OF BANKS CONNECTED</p>
+    <p><%= @items.size %></p>
+  </div>
+</div>
+<div class="mx-20 my-20 flex flex-wrap">
+  <p class="text-3xl font-extrabold w-full pb-2">Net Worth</p>
+  <p class="text-2xl font-thin w-full">A summary of your assets and liabilities</p>
+</div>
+<div class="mx-20 my-10 flex flex-wrap">
+  <p class="text-lg font-thin w-full pb-4">
+    YOUR TOTAL ACROSS <%= pluralize(@items.size, "bank").upcase %>
+  </p>
+  <p class="text-3xl font-extrabold w-full pb-2"><%= humanized_money_with_symbol(@networth) %></p>
+</div>
+<div class="mx-20 my-10 flex flex-wrap justify-between space-x-4">
+  <div class="px-8 pt-8 pb-20 flex flex-wrap border border-gray-200 justify-between flex-1 space-y-12">
+    <div class="w-full flex flex-wrap justify-between">
+      <p><%= humanized_money_with_symbol(@total_asset_value) %></p>
+      <p>Add Asset</p>
+    </div>
+    <div class="w-full">
+      <p class="text-2xl font-thin">Assets</p>
+    </div>
+    <div class="flex flex-wrap space-y-4 font-thin">
+      <div class="w-full flex space-x-2">
+        <p class="flex-1">Cash</p>
+        <p class="flex-1"><%= humanized_money_with_symbol(@cash_balance) %></p>
+      </div>
+      <div class="w-full flex space-x-2">
+        <p class="flex-1">Investments</p>
+        <p class="flex-1"><%= humanized_money_with_symbol(@investments_balance) %></p>
+      </div>
+    </div>
+  </div>
+  <div class="px-8 pt-8 pb-20 flex flex-wrap border border-gray-200 justify-between flex-1 space-y-12">
+    <div class="w-full flex flex-wrap justify-between">
+      <p><%= humanized_money_with_symbol(@total_liabilities_value) %></p>
+    </div>
+    <div class="w-full">
+      <p class="text-2xl font-thin">Liabilities</p>
+    </div>
+    <div class="flex flex-wrap space-y-4 font-thin">
+      <div class="w-full flex space-x-2">
+        <p class="flex-1">Credit Cards</p>
+        <p class="flex-1"><%= humanized_money_with_symbol(@credit_cards_balance) %></p>
+      </div>
+      <div class="w-full flex space-x-2">
+        <p class="flex-1">Loans</p>
+        <p class="flex-1"><%= humanized_money_with_symbol(@loans_balance) %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mx-20 my-20 flex flex-wrap">
+  <p class="text-3xl font-extrabold w-full pb-2">Monthly Spending</p>
+  <p class="text-2xl font-thin w-full">A breakdown of your monthly spending</p>
+</div>
+<div class="mx-20 mt-10 flex flex-wrap">
+  <p class="text-lg font-thin w-full pb-4">
+    <%= "Monthly breakdown across #{pluralize(@items.size, "bank")}".upcase %>
+  </p>
+</div>
+<div class="mx-20 mb-10 flex flex-wrap justify-between space-x-4">
+  <div class="px-8 pt-8 pb-20 flex flex-wrap border border-gray-200 justify-between flex-1 space-y-12">
+    <div class="w-full">
+      <p class="text-2xl font-thin">Spending Categories</p>
+    </div>
+    <div class="flex flex-wrap space-y-4 font-thin">
+      <div class="w-full flex space-x-2">
+        <p class="flex-1">
+          <%= pie_chart (format_category_money(@spend_by_category)[0..1]), legend: false %>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="px-8 pt-8 pb-20 flex flex-wrap border border-gray-200 justify-between flex-1">
+    <div class="w-full">
+      <p class="text-2xl font-thin">Top 5 Vendors</p>
+    </div>
+    <div class="px-4 sm:px-6 lg:px-8">
+      <div class="flow-root">
+        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <table class="min-w-full">
+              <thead>
+                <tr>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Vendor</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @top_merchants.each do |merchant_spend| %>
+                  <tr>
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-0"><%= merchant_spend[0].truncate(16) %></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= humanized_money_with_symbol(merchant_spend[1]) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mx-20 mt-20 mb-10 flex flex-wrap justify-between">
+  <div class="flex flex-wrap flex-1">
+    <p class="text-3xl font-extrabold w-full pb-2">
+      <%= "#{pluralize(@items.size, "Banks")} Linked" %>
+    </p>
+    <p class="text-lg font-thin w-full">
+      Below is a list of all your connected banks. Click on a bank to views its associated accounts
+    </p>
+  </div>
+  <button data-controller="plaid-link" class="bg-black text-white px-6 py-4 h-fit rounded-sm">
+    <p class="text-xl" id="link-account">
+      Add another bank <span class="text-2x ml-8">&#8250;</span>
+    </p>
+  </button>
+</div>
+<div class="">
+  <% @items.each do |item| %>
+    <div data-controller="renderer">
+      <div class="mx-20 mb-4 py-8 px-8 flex flex-wrap shadow-lg bg-gray-100 content-center border border-gray-200 font-thin justify-between">
+        <div>
+          <div class="my-auto"><%= item.bank_name %></div>
+          <div class="text-sm">
+            <%= link_to "view details", item_accounts_path(item), data: { remote: true, action: "click->renderer#render"} %>
+          </div>
+        </div>
+        <%= button_to "Remove Bank", item_path(item), method: :delete, class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+      </div>
+      <div class="hidden" data-renderer-target="display">
+        <%= render "item_details", accounts: item.accounts %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,25 @@
+example_id                                      | status | run_time        |
+----------------------------------------------- | ------ | --------------- |
+./spec/commands/account/create_spec.rb[1:1:1]   | passed | 22.73 seconds   |
+./spec/commands/item/create_spec.rb[1:1:1]      | passed | 0.18303 seconds |
+./spec/commands/item/create_spec.rb[1:2:1]      | passed | 0.02019 seconds |
+./spec/commands/item/delete_item_spec.rb[1:1:1] | passed | 0.02208 seconds |
+./spec/commands/item/delete_item_spec.rb[1:1:2] | passed | 0.6411 seconds  |
+./spec/models/account_spec.rb[1:1:1]            | passed | 0.01956 seconds |
+./spec/models/account_spec.rb[1:2:1]            | passed | 0.00311 seconds |
+./spec/models/account_spec.rb[1:2:2]            | passed | 0.14852 seconds |
+./spec/models/account_spec.rb[1:2:3]            | passed | 0.00339 seconds |
+./spec/models/account_spec.rb[1:3:1]            | passed | 0.23254 seconds |
+./spec/models/account_spec.rb[1:3:2]            | passed | 0.00335 seconds |
+./spec/models/account_spec.rb[1:3:3]            | passed | 0.00338 seconds |
+./spec/models/account_spec.rb[1:3:4]            | passed | 0.00336 seconds |
+./spec/models/account_spec.rb[1:3:5]            | passed | 0.00342 seconds |
+./spec/models/account_spec.rb[1:3:6]            | passed | 0.00362 seconds |
+./spec/models/account_spec.rb[1:3:7]            | passed | 0.00353 seconds |
+./spec/models/account_spec.rb[1:3:8]            | passed | 0.00341 seconds |
+./spec/models/account_spec.rb[1:3:9]            | passed | 0.00346 seconds |
+./spec/models/item_spec.rb[1:1:1]               | passed | 0.05678 seconds |
+./spec/models/item_spec.rb[1:2:1]               | passed | 0.00557 seconds |
+./spec/models/item_spec.rb[1:2:2]               | passed | 0.00331 seconds |
+./spec/models/item_spec.rb[1:2:3]               | passed | 0.00292 seconds |
+./spec/models/item_spec.rb[1:2:4]               | passed | 0.00342 seconds |

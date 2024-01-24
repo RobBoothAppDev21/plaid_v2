@@ -1,38 +1,67 @@
-<h1>
-  <% if current_user %>
-    <%= current_user.email %>
-  <% end %>
-</h1>
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="mt-8 flow-root">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+            <tr>
+              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Account Name</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Balance</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Recent Transactions</th>
+              <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                <span class="sr-only">View Account Activity</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 bg-white align-top">
+            <% @accounts.each do |account| %>
+              <tr>
+                <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                  <div class="flex items-center">
+                    <div class="ml-4">
+                      <div class="font-medium text-gray-900"><%= account.name %></div>
+                      <div class="mt-1 text-gray-500"><%= account.account_type %></div>
+                    </div>
+                  </div>
+                </td>
+                <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                  <div class="text-gray-900"><%= humanized_money_with_symbol(account.available_balance_cents) %></div>
+                </td>
+                <% if account.transactions.exists? %>
+                  <%= render partial: "transactions_preview", locals: {transactions: account.transactions.limit(3)} %>
+                  
+                <% else %>
+                  <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                    <div class="flow-root">
+                      <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="inline-block min-w-full align-middle sm:px-6 lg:px-8">
+                          <table class="min-w-full divide-y divide-gray-300">
+                            <tbody class="">
+                              <tr>
+                                <td class="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">No Transactions</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                <% end %>
+                <td class="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Account Activity<span class="sr-only">, Account Name</span></a>
+                </td>
+              </tr>
+            <% end %>
 
- <button data-controller="plaid-link">
-  <strong id="link-account">Link account</strong>
-</button>
-
-<% if @accounts %>
-  <table>
-    <tr>
-      <th>
-        Bank Name
-      </th>
-      <th>
-        Account Name
-      </th>
-      <th>
-        Balance
-      </th>
-    </tr>
-    <% @accounts.each do |account| %>
-      <tr>
-        <td>
-          <%= account.item.bank_name %>
-        </td>
-        <td>
-          <%= account.name %>
-        </td>
-        <td>
-          <%= account.current_balance %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-<% end %>
+            <!-- More people... -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="sm:flex sm:items-center">
+    <div class="mt-4 sm:ml-4 sm:mt-0 sm:flex-none">
+      <button type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add Account</button>
+    </div>
+  </div>
+</div>
